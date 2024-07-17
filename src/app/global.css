@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 30% 97%;
+    --foreground: 0 0% 0%;
+    --light-1: 0 0% 92%;
+    --light-2: 0 0% 83%;
+    --light-3: 0 0% 60%;
+    --light-4: 0 0% 30%;
+    --transparent-dark-1: 0 0% 0% / 0.05;
+    --transparent-light-1: 0 0% 100% / 0.15;
+    --primary: 150 60% 40%;
+    --red: 0 100% 62%;
+    --blue: 211 100% 57%;
+    --purple: 276 100% 56%;
+    --green: 130 82% 52%;
+    --yellow: 60 100% 50%;
+    --gold: 41 100% 55%;
+    --pink: 331 100% 63%;
+  }
+
+  @font-face {
+    font-family: MontserratLight;
+    src:
+      local('Montserrat-Light'),
+      url('../../public/fonts/Montserrat-Light.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: montserratMedium;
+    src:
+      local('Montserrat-medium'),
+      url('../../public/fonts/Montserrat-Medium.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: montserratSemiBold;
+    src:
+      local('Montserrat-semiBold'),
+      url('../../public/fonts/Montserrat-SemiBold.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: MontserratExtraBold;
+    src:
+      local('Montserrat-ExtraBold'),
+      url('../../public/fonts/Montserrat-ExtraBold.ttf') format('truetype');
+    font-display: swap;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply border-light-1 outline-none box-border font-light m-0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  html {
+    @apply bg-background h-full;
+  }
+
+  body {
+    @apply bg-background text-foreground min-w-[300px] h-full overflow-hidden font-light text-base;
+    scrollbar-width: 0.75rem;
+    scrollbar-color: hsl(var(--light-2));
+    scrollbar-highlight-color: hsl(var(--transparent));
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    user-drag: none;
+    -webkit-user-drag: none;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 0 transparent inset;
+    -webkit-text-fill-color: inherit;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: inherit;
+    transition: none;
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+
+  h1 {
+    @apply text-light-4 text-balance font-montserrat-medium text-xl sm:text-2xl lg:text-3xl xl:text-4xl w-full break-normal;
+  }
+}
+
+@layer utilities {
+  .view-vertical {
+    @apply py-6 xs:py-10 md:py-20 relative h-screen w-full flex flex-col overflow-hidden;
+  }
+  .view-horizontal {
+    @apply w-full max-w-7xl mx-auto px-6 xs:px-10 md:px-28 lg:px-36;
+  }
+}
