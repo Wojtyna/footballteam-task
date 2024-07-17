@@ -78,7 +78,7 @@ const handleNewUserClick = () => {
           <!-- END FALLBACK -->
           <li
             v-if="!!UsersFiltered"
-            v-for="(user, index) in [...UsersFiltered, ...UsersFiltered]"
+            v-for="(user, index) in UsersFiltered"
             :class="{ 'bg-background': index % 2 === 0 }"
             class="w-full flex items-center p-3 gap-3 rounded-md"
           >
