@@ -47,7 +47,7 @@ const handleNewUserClick = () => {
 </script>
 
 <template>
-  <main class="view-vertical view-horizontal gap-3">
+  <main class="view-flex view-vertical view-horizontal gap-3">
     <h1>User list</h1>
     <section class="flex-1 h-0 overflow-hidden flex flex-col bg-white border rounded-md p-6 gap-4">
       <div
@@ -78,7 +78,7 @@ const handleNewUserClick = () => {
           <!-- END FALLBACK -->
           <li
             v-if="!!UsersFiltered"
-            v-for="(user, index) in UsersFiltered"
+            v-for="(user, index) in [...UsersFiltered, ...UsersFiltered]"
             :class="{ 'bg-background': index % 2 === 0 }"
             class="w-full flex items-center p-3 gap-3 rounded-md"
           >

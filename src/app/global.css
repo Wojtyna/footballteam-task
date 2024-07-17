@@ -74,7 +74,7 @@
   }
 
   body {
-    @apply bg-background text-foreground min-w-[300px] h-full overflow-hidden font-light text-base;
+    @apply bg-background text-foreground min-w-[300px] h-full overflow-x-hidden font-light text-base;
     scrollbar-width: 0.75rem;
     scrollbar-color: hsl(var(--light-2));
     scrollbar-highlight-color: hsl(var(--transparent));
@@ -112,8 +112,11 @@
 }
 
 @layer utilities {
+  .view-flex {
+    @apply relative h-dvh w-full flex flex-col overflow-hidden;
+  }
   .view-vertical {
-    @apply py-6 xs:py-10 md:py-20 relative h-screen w-full flex flex-col overflow-hidden;
+    @apply py-6 xs:py-10 md:py-20;
   }
   .view-horizontal {
     @apply w-full max-w-7xl mx-auto px-6 xs:px-10 md:px-28 lg:px-36;
