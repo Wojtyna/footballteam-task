@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/vue/24/solid'
 
@@ -26,7 +26,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['onPageChange'])
 
-const changePage = (page) => {
+const changePage = (page: number) => {
   emit('onPageChange', page)
 }
 
@@ -58,13 +58,13 @@ const isInLastPage = computed(() => {
   return props.currentPage === props.totalPages
 })
 
-const isPageActive = (page) => {
+const isPageActive = (page: number) => {
   return props.currentPage === page
 }
 const onClickPreviousPage = () => {
   changePage(props.currentPage - 1)
 }
-const onClickPage = async (page) => {
+const onClickPage = async (page: number) => {
   changePage(page)
 }
 const onClickNextPage = () => {

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue'
 import { PencilSquareIcon, TrashIcon, MagnifyingGlassIcon, PlusIcon } from '@heroicons/vue/24/solid'
 
@@ -7,12 +7,13 @@ import Button from '@/components/Button.vue'
 import Input from '@/components/Input.vue'
 import { useUsersStore } from '@/stores/users'
 import router from '@/router'
+import type { User } from '@/lib/regresApi'
 
 const VISIBLE_PAGINATION_BUTTONS = 11
 const FALLBACK_ITEMS_COUNT = 5
 
 const UserStore = useUsersStore()
-const UsersFiltered = ref(null)
+const UsersFiltered = ref(<User[] | null>null)
 
 onMounted(async () => {
   await UserStore.setData()
@@ -22,7 +23,7 @@ watchEffect(() => {
   UsersFiltered.value = UserStore.users
 })
 
-const filterInputChange = (inputValue) => {
+const filterInputChange = (inputValue: string) => {
   const normalizedInput = inputValue.toLowerCase()
   UsersFiltered.value = UserStore.users.filter((user) => {
     const normalizeUserName = (user.first_name + ' ' + user.last_name).toLowerCase()
@@ -30,16 +31,17 @@ const filterInputChange = (inputValue) => {
   })
 }
 
-const handleUserDelete = async (userId) => {
-  await UserStore.deleteUser(userId)
+const handleUserDelete = async (userId: string) => {
+  if (userId !== '') await UserStore.deleteUser(userId)
 }
-const handleUserEdit = (userId) => {
-  router.push({
-    path: 'update-user',
-    query: {
-      id: userId
-    }
-  })
+const handleUserEdit = (userId: string) => {
+  if (userId !== '')
+    router.push({
+      path: 'update-user',
+      query: {
+        id: userId
+      }
+    })
 }
 const handleNewUserClick = () => {
   router.push('/add-user')
@@ -94,10 +96,10 @@ const handleNewUserClick = () => {
                 '*:size-8 *:flex *:justify-center *:items-center *:rounded-md'
               ]"
             >
-              <button class="hover:bg-transparent-dark-1" @click="handleUserEdit(user.id)">
+              <button class="hover:bg-transparent-dark-1" @click="handleUserEdit(user.id || '')">
                 <PencilSquareIcon class="size-4" />
               </button>
-              <button class="hover:bg-transparent-dark-1" @click="handleUserDelete(user.id)">
+              <button class="hover:bg-transparent-dark-1" @click="handleUserDelete(user.id || '')">
                 <TrashIcon class="size-4" />
               </button>
             </div>

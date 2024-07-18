@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watchEffect } from 'vue'
 
 const props = defineProps({
@@ -22,18 +22,19 @@ const props = defineProps({
 })
 const emit = defineEmits(['onChange'])
 
-const inputRef = ref(null)
-const inputValue = ref('')
+const inputRef = ref<HTMLInputElement | null>(null)
+const inputValue = ref<string>('')
 
 watchEffect(() => {
-  inputValue.value = props.specValue
+  inputValue.value = props.specValue || ''
 })
 
 const triggerFilterInput = () => {
-  inputRef.value.focus()
+  inputRef.value?.focus()
 }
 
-const handleInputChange = ({ target: { value } }) => {
+const handleInputChange = ({ target }: Event) => {
+  const { value } = <HTMLInputElement>target
   inputValue.value = value
   emit('onChange', value, props.name)
 }
@@ -47,7 +48,7 @@ const handleInputChange = ({ target: { value } }) => {
       :class="{ 'bg-transparent border-light-1': inputValue !== '' }"
       @click="triggerFilterInput"
     >
-      <slot name="after" />
+      <slot name="before" />
       <input
         class="bg-transparent placeholder:font-montserrat-medium min-w-0 w-full"
         ref="inputRef"

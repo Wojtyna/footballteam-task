@@ -1,5 +1,5 @@
-<script setup>
-import { onMounted, ref, toRaw } from 'vue'
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { PhotoIcon } from '@heroicons/vue/24/solid'
 import { useRoute } from 'vue-router'
 
@@ -7,11 +7,7 @@ import Button from '@/components/Button.vue'
 import Input from '@/components/Input.vue'
 import { useUsersStore } from '@/stores/users'
 import router from '@/router'
-import { getUser } from '@/lib/regresApi'
-
-const INPUT_FIRST_NAME = 'first name'
-const INPUT_LAST_NAME = 'last name'
-const INPUT_IMAGE_URL = 'image url'
+import { getUser, type User } from '@/lib/regresApi'
 
 const props = defineProps({
   updateMode: {
@@ -25,37 +21,35 @@ const userId = routeQuery.query.id
 
 const UserStore = useUsersStore()
 
-const userData = ref({
-  [INPUT_FIRST_NAME]: '',
-  [INPUT_LAST_NAME]: '',
-  [INPUT_IMAGE_URL]: ''
-})
-const imageUrl = ref(null)
+const userData = ref(<User>{})
+const imageUrl = ref(<string | null>null)
 const isPending = ref(false)
 
 onMounted(async () => {
   if (props.updateMode && userId) {
-    const { error, data } = await getUser(userId)
-    if (!error) {
-      userData.value[INPUT_FIRST_NAME] = data.first_name
-      userData.value[INPUT_LAST_NAME] = data.last_name
-      userData.value[INPUT_IMAGE_URL] = data.avatar
+    try {
+      const { data } = await getUser(String(userId))
+      userData.value.first_name = data.first_name
+      userData.value.last_name = data.last_name
+      userData.value.avatar = data.avatar
       imageUrl.value = data.avatar
+    } catch (error) {
+      console.error(error)
     }
   }
 })
 
 const uploadImage = () => {
-  imageUrl.value = userData.value[INPUT_IMAGE_URL]
+  imageUrl.value = userData.value.avatar
 }
 
-const handleInputChange = (inputValue, inputName) => {
+const handleInputChange = (inputValue: string, inputName: string) => {
   userData.value[inputName] = inputValue
 }
 const handleSubmitPress = async () => {
   if (!isPending.value) {
     isPending.value = true
-    await UserStore.createUser(toRaw(userData.value))
+    await UserStore.createUser(userData.value)
     router.push('/')
     isPending.value = false
   }
@@ -69,14 +63,14 @@ const handleSubmitPress = async () => {
       <div class="sm:flex-1 flex flex-col justify-between bg-white border rounded-md p-6 gap-4">
         <div class="w-full flex flex-wrap gap-4 grow-0 shrink">
           <Input
-            :specValue="userData[INPUT_FIRST_NAME]"
-            :name="INPUT_FIRST_NAME"
+            :specValue="userData.first_name"
+            name="first_name"
             title="First name"
             @onChange="handleInputChange"
           />
           <Input
-            :specValue="userData[INPUT_LAST_NAME]"
-            :name="INPUT_LAST_NAME"
+            :specValue="userData.last_name"
+            name="last_name"
             title="Last name"
             @onChange="handleInputChange"
           />
@@ -95,8 +89,8 @@ const handleSubmitPress = async () => {
           class="w-full"
           title="Paste image url"
           placeholder="https//pexels.com/123.png"
-          :name="INPUT_IMAGE_URL"
-          :specValue="userData[INPUT_IMAGE_URL]"
+          name="avatar"
+          :specValue="userData.avatar"
           @onChange="handleInputChange"
         >
         </Input>
