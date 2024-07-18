@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { PhotoIcon } from '@heroicons/vue/24/solid'
+import { PhotoIcon } from '@heroicons/vue/24/outline'
 import { useRoute } from 'vue-router'
 
 import Button from '@/components/Button.vue'
@@ -75,8 +75,8 @@ const handleSubmitPress = async () => {
             @onChange="handleInputChange"
           />
         </div>
-        <Button :disabled="isPending" @click="handleSubmitPress"
-          >{{ updateMode ? 'Update Details' : 'Save user' }}
+        <Button :loading="isPending" @click="handleSubmitPress">
+          {{ updateMode ? 'Update Details' : 'Save user' }}
         </Button>
       </div>
       <div

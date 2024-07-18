@@ -4,13 +4,13 @@ A recruitment assignment on behalf of Footballteam.
 
 ### Todo
 
-- [ ] Testing with vitest
+- 🟦 Testing with vitest
 
 ### In Progress
 
-- [ ] Add Yup validation to form in "User Add/Edit"
+- 🟨 Add Yup validation to form in "User Add/Edit"
 
-### Done ✓
+### Done
 
-- [x] Upgrade files to Typescript
-- [x] v1.1.2
+- 🟩 Upgrade files to Typescript
+- 🟩 v1.1.2

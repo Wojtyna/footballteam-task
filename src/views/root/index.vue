@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue'
-import { PencilSquareIcon, TrashIcon, MagnifyingGlassIcon, PlusIcon } from '@heroicons/vue/24/solid'
+import {
+  PencilSquareIcon,
+  TrashIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+  SparklesIcon
+} from '@heroicons/vue/24/outline'
 
 import Pagination from '@/components/Pagination.vue'
 import Button from '@/components/Button.vue'
@@ -78,6 +84,15 @@ const handleNewUserClick = () => {
             class="w-full h-16 flex items-center p-3 gap-3 rounded-md bg-background animate-pulse mb-2"
           />
           <!-- END FALLBACK -->
+          <!-- NO ITEMS -->
+          <li
+            v-if="UsersFiltered && UsersFiltered.length === 0"
+            class="w-full flex flex-col items-center justify-center p-3 gap-3 text-light-1"
+          >
+            <SparklesIcon class="size-12" />
+            <span class="uppercase font-montserrat-semibold text-lg">Empty</span>
+          </li>
+          <!-- END NO ITEMS -->
           <li
             v-if="!!UsersFiltered"
             v-for="(user, index) in UsersFiltered"
@@ -92,7 +107,7 @@ const handleNewUserClick = () => {
             </div>
             <div
               :class="[
-                'shrink-0 flex items-center md:pr-10 gap-0 sm:gap-1 text-light-3 ',
+                'shrink-0 flex items-center md:pr-10 gap-0 sm:gap-1 text-light-4 ',
                 '*:size-8 *:flex *:justify-center *:items-center *:rounded-md'
               ]"
             >
