@@ -5,12 +5,12 @@ A recruitment assignment on behalf of Footballteam.
 ### Todo
 
 - [ ] Testing with vitest
-- [ ] Add Yup validation to form in "User Add"
 
 ### In Progress
 
-- [ ] Upgrade files to Typescript
+- [ ] Add Yup validation to form in "User Add/Edit"
 
 ### Done ✓
 
+- [x] Upgrade files to Typescript
 - [x] v1.1.2
