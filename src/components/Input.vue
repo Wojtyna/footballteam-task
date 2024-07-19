@@ -18,6 +18,13 @@ const props = defineProps({
   specValue: {
     type: String,
     required: false
+  },
+  required: Boolean,
+  minlength: String,
+  type: {
+    type: String,
+    required: false,
+    default: 'text'
   }
 })
 const emit = defineEmits(['onChange'])
@@ -55,6 +62,9 @@ const handleInputChange = ({ target }: Event) => {
         :placeholder="placeholder"
         :name="name"
         :value="inputValue"
+        :type="type"
+        :required="required"
+        :minlength="minlength"
         @input="handleInputChange"
       />
       <slot name="after" />

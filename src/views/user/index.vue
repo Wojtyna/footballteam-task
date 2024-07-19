@@ -40,13 +40,15 @@ onMounted(async () => {
 })
 
 const uploadImage = () => {
-  imageUrl.value = userData.value.avatar
+  if (userData.value.avatar !== '') imageUrl.value = userData.value.avatar
 }
 
 const handleInputChange = (inputValue: string, inputName: string) => {
   userData.value[inputName] = inputValue
 }
-const handleSubmitPress = async () => {
+
+const handleSubmit = async (_ev: any) => {
+  _ev.preventDefault()
   if (!isPending.value) {
     isPending.value = true
     await UserStore.createUser(userData.value)
@@ -59,23 +61,30 @@ const handleSubmitPress = async () => {
 <template>
   <main class="view-vertical view-horizontal flex flex-col gap-3">
     <h1>{{ updateMode ? 'Update' : 'Add' }} user</h1>
-    <div class="h-fit flex max-sm:flex-col-reverse max-sm:justify-end gap-4">
+    <form
+      class="h-fit flex max-sm:flex-col-reverse max-sm:justify-end gap-4"
+      @submit="handleSubmit"
+    >
       <div class="sm:flex-1 flex flex-col justify-between bg-white border rounded-md p-6 gap-4">
         <div class="w-full flex flex-wrap gap-4 grow-0 shrink">
           <Input
             :specValue="userData.first_name"
             name="first_name"
             title="First name"
+            required
+            minlength="2"
             @onChange="handleInputChange"
           />
           <Input
             :specValue="userData.last_name"
             name="last_name"
             title="Last name"
+            required
+            minlength="2"
             @onChange="handleInputChange"
           />
         </div>
-        <Button :loading="isPending" @click="handleSubmitPress">
+        <Button type="submit" :loading="isPending">
           {{ updateMode ? 'Update Details' : 'Save user' }}
         </Button>
       </div>
@@ -99,6 +108,6 @@ const handleSubmitPress = async () => {
           {{ updateMode ? 'Change Photo' : 'Add image' }}
         </Button>
       </div>
-    </div>
+    </form>
   </main>
 </template>

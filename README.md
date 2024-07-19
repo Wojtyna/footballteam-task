@@ -8,9 +8,8 @@ A recruitment assignment on behalf of Footballteam.
 
 ### In Progress
 
-- 🟨 Add Yup validation to form in "User Add/Edit"
-
 ### Done
 
+- 🟩 Added form validation in "User Add/Edit"
 - 🟩 Upgrade files to Typescript
 - 🟩 v1.1.2

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { type ButtonHTMLAttributes, type PropType } from 'vue'
 const props = defineProps({
   variant: {
     type: String,
@@ -9,6 +10,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  type: {
+    type: String as PropType<ButtonHTMLAttributes['type']>,
+    default: 'button'
   }
 })
 const emit = defineEmits(['click'])
@@ -26,6 +31,7 @@ const handleClickEvent = () => {
       'border border-light-2': variant === 'outline',
       'opacity-50 cursor-not-allowed': loading
     }"
+    :type="type"
     @click="handleClickEvent"
   >
     <div
